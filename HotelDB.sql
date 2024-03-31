@@ -75,3 +75,52 @@ ALTER TABLE Customer ADD CONSTRAINT unique_email UNIQUE(email);
 ALTER TABLE Employee ADD CONSTRAINT unique_email UNIQUE(email);
 ALTER TABLE HotelChain ADD CONSTRAINT unique_email_adrs UNIQUE(email_adrs);
 ALTER TABLE Hotel ADD CONSTRAINT unique_email UNIQUE(email);
+
+
+-- Trigger to Update Room Status on Booking 
+CREATE OR REPLACE FUNCTION trg_update_room_status_on_booking()
+RETURNS TRIGGER AS $$
+BEGIN
+    UPDATE Rooms
+    SET status = 'booked'
+    WHERE room_num = NEW.room_num;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER after_booking_insert
+AFTER INSERT ON Booking
+FOR EACH ROW
+EXECUTE FUNCTION trg_update_room_status_on_booking();
+
+--Trigger to Prevent Deleting a Hotel with Active Bookings
+CREATE OR REPLACE FUNCTION trg_prevent_hotel_delete()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF EXISTS (SELECT 1 FROM Booking WHERE room_num IN (SELECT room_num FROM Rooms WHERE hotel_id = OLD.hotel_id)) THEN
+        RAISE EXCEPTION 'Cannot delete hotel with active bookings';
+    END IF;
+    RETURN OLD;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER before_hotel_delete
+BEFORE DELETE ON Hotel
+FOR EACH ROW
+EXECUTE FUNCTION trg_prevent_hotel_delete();
+
+-- Trigger to Update Room Status on Check-in
+CREATE OR REPLACE FUNCTION trg_update_room_status_on_renting()
+RETURNS TRIGGER AS $$
+BEGIN
+    UPDATE Rooms
+    SET status = 'occupied'
+    WHERE room_num = NEW.room_num;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER after_renting_insert
+AFTER INSERT ON Renting
+FOR EACH ROW
+EXECUTE FUNCTION trg_update_room_status_on_renting();
