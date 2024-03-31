@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Page</title>
+    <link rel="stylesheet" href="homepageS.css">
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li><a href="homepage.html">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+    <h2>
+        <button onclick="switchToCustomerPage()" class="btn">Customer Manage</button>
+        <button onclick="switchToEmployeePage()" class="btn">Employee Manage</button>
+        <button onclick="switchToManagingPage()" class="btn">Hotel Manage</button>
+    </h2>
+    <footer>
+        <p>&copy; 2024 HotelAppInc. All rights reserved.</p>
+    </footer>
+    <script>
+        function switchToCustomerPage() {
+            window.location.href = "customer.html";
+        }
+        function switchToEmployeePage() {
+            window.location.href = "employee.html";
+        }
+        function switchToManagingPage() {
+            window.location.href = "edit.html";
+        }
+    </script>
+</body>
+
+</html>
