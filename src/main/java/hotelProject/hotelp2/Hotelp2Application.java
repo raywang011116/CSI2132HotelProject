@@ -14,7 +14,7 @@ public class Hotelp2Application {
 		SpringApplication.run(Hotelp2Application.class, args);
 	}
 
-	@RestController
-	class HomeController {
+	public String index() {
+		return "homepage";
 	}
 }

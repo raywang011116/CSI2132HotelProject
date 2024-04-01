@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="homepageS.css"> 
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="#about">Home</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><button onclick="switchToLoginPage()" class="btn">Admin Portal</button></li>
+        </ul>
+    </nav>
+    <section id="hero">
+        <h1>Welcome to Our Hotel Booking Website</h1>
+        <p>Your go-to destination for all your trips.</p>
+        <h1>Get started booking for your trip!</h1>
+        <button onclick="switchToBookingPage()" class="btn">Book Now</button>
+        <p>
+            <?php include 'content.php'; ?>
+            <?= $text ?>
+        </p>
+    </section>
+    <section id="features">
+        <h2>Our Features</h2>
+        <div class="feature">
+            <h3>Feature 1</h3>
+            <p>1</p>
+        </div>
+        <div class="feature">
+            <h3>Feature 2</h3>
+            <p>2</p>
+        </div>
+    </section>
+    <footer>
+        <p>&copy; 2024 HotelAppInc. All rights reserved.</p>
+    </footer>
+    <script>
+        function switchToBookingPage() {
+            window.location.href = "booking.html";
+        }
+
+        function switchToLoginPage() {
+            window.location.href = "login.html";
+        }
+    </script>
+</body>
+</html>

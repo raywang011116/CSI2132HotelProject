@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Page</title>
+    <link rel="stylesheet" href="bookingS.css">
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li><a href="homepage.html">Home</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+    <form id="bookingForm" action="submit_booking.php" method="post">
+        <h1>Booking Form</h1>
+        <div class="form-group">
+            <label for="fullName">Full Name:</label>
+            <input type="text" id="fullName" name="fullName" required>
+        </div>
+
+        <div class="form-group">
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="address" required>
+        </div>
+
+        <div class="form-group">
+            <label for="idType">Type of ID:</label>
+            <select id="idType" name="idType" required>
+                <option value="SSN">SSN</option>
+                <option value="SIN">SIN</option>
+                <option value="Driving License">Driving License</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="CId">Enter ID:</label>
+            <input type="text" id="CId" name="CId" required>
+        </div>
+
+        <div class="form-group">
+            <label for="registrationDate">Date of Registration:</label>
+            <input type="date" id="registrationDate" name="registrationDate" required>
+        </div>
+
+        <div class="form-group">
+            <label for="hotelChain">Select Hotel Chain:</label>
+            <select id="hotelChain" name="hotelChain" required>
+                <option value="Hotel Chain 1">Hotel Chain 1</option>
+                <option value="Hotel Chain 2">Hotel Chain 2</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="hotel">Select Hotel:</label>
+            <select id="hotel" name="hotel" required>
+                <option value="Hotel 1">Hotel 1</option>
+                <option value="Hotel 2">Hotel 2</option>
+            </select>
+        </div>
+
+        <button type="button" onclick="submitForm()">Submit</button>
+    </form>
+    <footer>
+        <p>&copy; 2024 HotelAppInc. All rights reserved.</p>
+    </footer>
+    <script>
+        function submitForm() {
+            var isValid = true;
+            var elements = document.getElementById("bookingForm").elements;
+            var formData = {
+                fullName: document.getElementById("fullName").value,
+                address: document.getElementById("address").value,
+                idType: document.getElementById("idType").value,
+                CId: document.getElementById("CId").value,
+                registrationDate: document.getElementById("registrationDate").value,
+                hotelChain: document.getElementById("hotelChain").value,
+                hotel: document.getElementById("hotel").value
+            };
+            for (var i = 0; i < elements.length; i++) {
+                if (elements[i].hasAttribute("required") && elements[i].value.trim() === "") {
+                    isValid = false;
+                    break;
+                }
+            }
+            if (!isValid) {
+                alert("Please fill in all required fields.");
+            }
+            if (isValid) {
+                console.log(formData);
+                alert("Form data submitted:\n" + JSON.stringify(formData));
+                window.location.href = "confirmation.html"
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -3,12 +3,6 @@ body {
     margin: 0;
     padding: 0;
 }
-div{
-    text-align: center;
-    margin-top: 30px;
-    margin-bottom: 20px;
-
-}
 nav {
     background-color: #333;
     padding: 35px;
@@ -36,14 +30,22 @@ footer {
     bottom: 0;
     width: 100%;
 }
+#loginForm {
+    text-align: center;
+    margin: 0 auto;
+    width: 50%; 
+}
+#loginsection {
+    background-color: #9b9797c7;
+    padding: 275px 0;
+    text-align: center;
+}
 .btn {
     background-color: #00aeff;
     color: white;
-    padding: 10px 40px;
+    padding: 10px 20px;
     text-decoration: none;
     border-radius: 5px;
-    font-size: large;
-
 }
 .btn:hover {
     background-color: #0056b3;
