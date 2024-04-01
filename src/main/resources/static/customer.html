@@ -86,8 +86,21 @@
             const newName = prompt("Enter new name:");
             if (newName !== null && newName !== "") {
                 customers[index].name = newName;
-                saveCustomerListToStorage(customers);
-                displayCustomers();
+                saveEmployeeListToStorage(customers);
+                displayEmployees();
+            }
+            
+            const neweID = prompt("Enter new ID:");
+            if (neweID !== null && neweID !== "") {
+                customers[index].eID = neweID;
+                saveEmployeeListToStorage(customers);
+                displayEmployees();
+            }
+            const newaddress = prompt("Enter new address:");
+            if (newaddress !== null && newaddress !== "") {
+                customers[index].address = newaddress;
+                saveEmployeeListToStorage(customers);
+                displayEmployees();
             }
         }
         function deleteCustomer(index) {
