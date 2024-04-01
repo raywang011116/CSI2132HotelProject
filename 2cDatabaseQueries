@@ -1,0 +1,38 @@
+-- Query 1: List Hotels by Star Rating in a Specific Area
+-- This query retrieves hotels of a specific star rating within a given area. It's useful for customers looking for hotels that meet their standards in a particular location.
+
+SELECT name, hotel_address, star_category
+FROM Hotel
+WHERE star_category = 4 AND hotel_address LIKE '%Ottawa%'
+ORDER BY name;
+
+--Query 2: Count the Number of Rooms Available in Each Hotel (Aggregation)
+--This query demonstrates aggregation by counting the number of available rooms in each hotel, which is crucial for managing bookings.
+
+SELECT Hotel.name, COUNT(Rooms.room_num) AS available_rooms
+FROM Hotel
+JOIN Rooms ON Hotel.hotel_id = Rooms.hotel_id
+WHERE Rooms.status = 'available'
+GROUP BY Hotel.name
+ORDER BY available_rooms DESC;
+
+-- Query 3: Find Hotels with More Than a Specific Number of Bookings (Nested Query)
+-- This nested query identifies hotels that have a higher number of bookings than a specified threshold, indicating popularity or high demand.
+
+SELECT h.name, h.hotel_address
+FROM Hotel h
+WHERE (SELECT COUNT(b.booking_id)
+       FROM Booking b
+       JOIN Rooms r ON b.room_num = r.room_num
+       WHERE r.hotel_id = h.hotel_id) > 10;
+
+-- Query 4: List Customers with Bookings in More Than One Hotel Chain
+--This query uses a JOIN operation to find customers who have bookings in more than one hotel chain, possibly indicating frequent travelers or business clients
+
+SELECT c.name, COUNT(DISTINCT h.chain_id) AS number_of_chains
+FROM Customer c
+JOIN Booking b ON c.customer_id = b.customer_id
+JOIN Rooms r ON b.room_num = r.room_num
+JOIN Hotel h ON r.hotel_id = h.hotel_id
+GROUP BY c.name
+HAVING COUNT(DISTINCT h.chain_id) > 1;
