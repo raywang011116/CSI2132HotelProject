@@ -157,3 +157,44 @@ CREATE INDEX idx_employee_role ON Employee (role);
 CREATE INDEX idx_booking_check_in_date ON Booking (check_in_date);
 CREATE INDEX idx_booking_check_out_date ON Booking (check_out_date);
 CREATE INDEX idx_renting_renting_date ON Renting (renting_date);
+
+-- View: Number of Available Rooms Per Area
+-- Execution code: SELECT * FROM AvailableRoomsPerArea;
+CREATE VIEW AvailableRoomsPerArea AS
+SELECT h.hotel_address AS Area, COUNT(*) AS AvailableRooms
+FROM Rooms r
+JOIN Hotel h ON r.hotel_id = h.hotel_id
+WHERE r.status = 'available'
+GROUP BY h.hotel_address;
+
+-- View: Aggregated Capacity of All Rooms in a Specific Hotel
+-- Execution code: SELECT * FROM HotelRoomCapacity;
+CREATE VIEW HotelRoomCapacity AS
+SELECT h.name AS HotelName, SUM(CAST(r.room_capacity AS INTEGER)) AS TotalCapacity
+FROM Rooms r
+JOIN Hotel h ON r.hotel_id = h.hotel_id
+GROUP BY h.name;
+
+-- View: Room Details by Hotel
+-- Execution code: SELECT * FROM RoomDetailsByHotel;
+CREATE VIEW RoomDetailsByHotel AS
+SELECT h.name AS HotelName, r.room_num, r.price, r.amenities, r.room_capacity
+FROM Rooms r
+JOIN Hotel h ON r.hotel_id = h.hotel_id;
+
+-- View: Employee Roles in Each Hotel
+-- Execution code: SELECT * FROM EmployeeRolesByHotel;
+CREATE VIEW EmployeeRolesByHotel AS
+SELECT h.name AS HotelName, e.role, COUNT(*) AS NumberOfEmployees
+FROM Employee e
+JOIN Hotel h ON e.hotel_id = h.hotel_id
+GROUP BY h.name, e.role;
+
+-- View: Current Bookings for Each Hotel
+-- Execution code: SELECT * FROM CurrentBookingsByHotel;
+CREATE VIEW CurrentBookingsByHotel AS
+SELECT h.name AS HotelName, b.booking_id, c.name AS CustomerName, b.check_in_date, b.check_out_date
+FROM Booking b
+JOIN Customer c ON b.customer_id = c.customer_id
+JOIN Rooms r ON b.room_num = r.room_num
+JOIN Hotel h ON r.hotel_id = h.hotel_id;
