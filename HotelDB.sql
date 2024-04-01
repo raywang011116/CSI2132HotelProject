@@ -124,3 +124,36 @@ CREATE TRIGGER after_renting_insert
 AFTER INSERT ON Renting
 FOR EACH ROW
 EXECUTE FUNCTION trg_update_room_status_on_renting();
+
+-- Index on Primary Keys
+CREATE INDEX idx_hotelchain_name ON HotelChain (name);
+CREATE INDEX idx_hotel_hotel_id ON Hotel (hotel_id);
+CREATE INDEX idx_rooms_room_num ON Rooms (room_num);
+CREATE INDEX idx_customer_customer_id ON Customer (customer_id);
+CREATE INDEX idx_employee_employee_id ON Employee (employee_id);
+CREATE INDEX idx_booking_booking_id ON Booking (booking_id);
+CREATE INDEX idx_renting_renting_id ON Renting (renting_id);
+
+-- Index on Foreign Keys
+CREATE INDEX idx_hotel_chain_id ON Hotel (chain_id);
+CREATE INDEX idx_rooms_hotel_id ON Rooms (hotel_id);
+CREATE INDEX idx_booking_customer_id ON Booking (customer_id);
+CREATE INDEX idx_booking_room_num ON Booking (room_num);
+CREATE INDEX idx_renting_customer_id ON Renting (customer_id);
+CREATE INDEX idx_renting_room_num ON Renting (room_num);
+CREATE INDEX idx_employee_hotel_id ON Employee (hotel_id);
+
+-- Composite Indexes for Common Queries
+CREATE INDEX idx_booking_dates ON Booking (check_in_date, check_out_date);
+CREATE INDEX idx_rooms_status_capacity ON Rooms (status, room_capacity);
+
+-- Indexes on Fields Used in WHERE Clauses
+CREATE INDEX idx_rooms_price ON Rooms (price);
+CREATE INDEX idx_rooms_view_type ON Rooms (view_type);
+CREATE INDEX idx_customer_name ON Customer (name);
+CREATE INDEX idx_employee_role ON Employee (role);
+
+-- Index on Date Fields
+CREATE INDEX idx_booking_check_in_date ON Booking (check_in_date);
+CREATE INDEX idx_booking_check_out_date ON Booking (check_out_date);
+CREATE INDEX idx_renting_renting_date ON Renting (renting_date);
