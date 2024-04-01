@@ -51,6 +51,9 @@
             <select id="hotelChain" name="hotelChain" required>
                 <option value="Hotel Chain 1">Hotel Chain 1</option>
                 <option value="Hotel Chain 2">Hotel Chain 2</option>
+                <option value="Hotel Chain 2">Hotel Chain 3</option>
+                <option value="Hotel Chain 2">Hotel Chain 4</option>
+                <option value="Hotel Chain 2">Hotel Chain 5</option>
             </select>
         </div>
 
@@ -59,6 +62,19 @@
             <select id="hotel" name="hotel" required>
                 <option value="Hotel 1">Hotel 1</option>
                 <option value="Hotel 2">Hotel 2</option>
+                <option value="Hotel 2">Hotel 3</option>
+                <option value="Hotel 2">Hotel 4</option>
+                <option value="Hotel 2">Hotel 5</option>
+                <option value="Hotel 2">Hotel 6</option>
+                <option value="Hotel 2">Hotel 7</option>
+                <option value="Hotel 2">Hotel 8</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="view">Select Hotel:</label>
+            <select id="view" name="view" required>
+                <option value="Hotel 1">Sea view</option>
+                <option value="Hotel 2">Mountain view</option>
             </select>
         </div>
 
@@ -78,7 +94,8 @@
                 CId: document.getElementById("CId").value,
                 registrationDate: document.getElementById("registrationDate").value,
                 hotelChain: document.getElementById("hotelChain").value,
-                hotel: document.getElementById("hotel").value
+                hotel: document.getElementById("hotel").value,
+                view: document.getElementById("view").value
             };
             for (var i = 0; i < elements.length; i++) {
                 if (elements[i].hasAttribute("required") && elements[i].value.trim() === "") {
@@ -91,7 +108,9 @@
             }
             if (isValid) {
                 console.log(formData);
+                
                 alert("Form data submitted:\n" + JSON.stringify(formData));
+                
                 window.location.href = "confirmation.html"
             }
         }

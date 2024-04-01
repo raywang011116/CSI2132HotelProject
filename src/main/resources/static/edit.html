@@ -14,9 +14,68 @@
             <li><a href="#contact">Contact</a></li>
         </ul>
     </nav>
-    
+    <form id="bookingForm" action="submit_booking.php" method="post">
+        <h1>Filter of room for status update.</h1>
+        
+
+        <div class="form-group">
+            <label for="hotelChain">Select Hotel Chain:</label>
+            <select id="hotelChain" name="hotelChain" required>
+                <option value="Hotel Chain 1">Hotel Chain 1</option>
+                <option value="Hotel Chain 2">Hotel Chain 2</option>
+                <option value="Hotel Chain 2">Hotel Chain 3</option>
+                <option value="Hotel Chain 2">Hotel Chain 4</option>
+                <option value="Hotel Chain 2">Hotel Chain 5</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="hotel">Select Hotel:</label>
+            <select id="hotel" name="hotel" required>
+                <option value="Hotel 1">Hotel 1</option>
+                <option value="Hotel 2">Hotel 2</option>
+                <option value="Hotel 2">Hotel 3</option>
+                <option value="Hotel 2">Hotel 4</option>
+                <option value="Hotel 2">Hotel 5</option>
+                <option value="Hotel 2">Hotel 6</option>
+                <option value="Hotel 2">Hotel 7</option>
+                <option value="Hotel 2">Hotel 8</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="roomnum">room#:</label>
+            <input type="text" id="roomnum" name="roomnum" required>
+        </div>
+
+        <button type="button" onclick="submitForm()">Submit</button>
+    </form>
     <footer>
         <p>&copy; 2024 HotelAppInc. All rights reserved.</p>
     </footer>
+    <script>
+        function submitForm() {
+            var isValid = true;
+            var elements = document.getElementById("bookingForm").elements;
+            var formData = {
+                hotelChain: document.getElementById("hotelChain").value,
+                hotel: document.getElementById("hotel").value,
+                room: document.getElementById("roomnum").value
+            };
+            for (var i = 0; i < elements.length; i++) {
+                if (elements[i].hasAttribute("required") && elements[i].value.trim() === "") {
+                    isValid = false;
+                    break;
+                }
+            }
+            if (!isValid) {
+                alert("Please fill in all properties.");
+            }
+            if (isValid) {
+                console.log(formData);
+                
+                alert("Room filter data submitted:\n" + JSON.stringify(formData));
+            }
+        }
+    </script>
 </body>
 </html>
